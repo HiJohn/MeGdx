@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        applicationId "carl.megdx"
+        minSdkVersion 22
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
+        ndk {
+            abiFilters 'armeabi','armeabi-v7a','arm64-v8a'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
+
+
+    //Libgdx和spine库
+    implementation 'com.badlogicgames.gdx:gdx-backend-android:1.9.11'
+    implementation 'com.badlogicgames.gdx:gdx:1.9.11'
+    implementation 'com.esotericsoftware.spine:spine-libgdx:3.7.94.1'
+    //Libgdx中文字体库
+    implementation "com.badlogicgames.gdx:gdx-freetype:1.9.11"
+//    implementation "com.badlogicgames.gdx:gdx-box2d:1.9.11"
+//    implementation "com.badlogicgames.box2dlights:box2dlights:1.4"
+//    implementation "com.badlogicgames.ashley:ashley:1.7.0"
+//    implementation "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.5"
+//    implementation "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.4"
+//    implementation "net.dermetfan.libgdx-utils:libgdx-utils:0.13.4"
+
+
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+}
