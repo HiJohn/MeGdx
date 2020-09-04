@@ -5,29 +5,38 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+	ShapeRenderer shape;
+	ArrayList<Ball> balls = new ArrayList<>();
+	Random r = new Random();
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		shape = new ShapeRenderer();
+		for (int i = 0; i < 10; i++) {
+			balls.add(new Ball(r.nextInt(Gdx.graphics.getWidth()),
+					r.nextInt(Gdx.graphics.getHeight()),
+					r.nextInt(100), r.nextInt(15), r.nextInt(15)));
+		}
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		shape.begin(ShapeRenderer.ShapeType.Filled);
+		for (Ball ball : balls) {
+			ball.update();
+			ball.draw(shape);
+		}
+		shape.end();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+		shape.dispose();
 	}
 }
