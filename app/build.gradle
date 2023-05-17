@@ -1,13 +1,20 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+
+    id 'org.jetbrains.kotlin.android'
+
+}
+apply from: 'libs.gradle'
+
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    compileSdkVersion 33
+
 
     defaultConfig {
         applicationId "carl.megdx"
         minSdkVersion 22
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -15,7 +22,7 @@ android {
 
 
         ndk {
-            abiFilters 'armeabi','armeabi-v7a','arm64-v8a'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
         }
     }
 
@@ -25,13 +32,48 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+
+    flavorDimensions "name"
+
+    productFlavors{
+
+        pay{
+            dimension  'name'
+        }
+
+        free{
+            dimension  'name'
+        }
+    }
+    namespace 'carl.megdx'
+
+
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+
+    implementation "androidx.core:core-ktx:1.8.0"
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
 
+//    payImplementation 'com.google.android.material:material:1.8.0'
 
     //Libgdx和spine库
     implementation 'com.badlogicgames.gdx:gdx-backend-android:1.9.11'
@@ -39,6 +81,7 @@ dependencies {
     implementation 'com.esotericsoftware.spine:spine-libgdx:3.7.94.1'
     //Libgdx中文字体库
     implementation "com.badlogicgames.gdx:gdx-freetype:1.9.11"
+    implementation 'com.google.android.material:material:1.5.0'
 //    implementation "com.badlogicgames.gdx:gdx-box2d:1.9.11"
 //    implementation "com.badlogicgames.box2dlights:box2dlights:1.4"
 //    implementation "com.badlogicgames.ashley:ashley:1.7.0"
